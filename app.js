@@ -9,6 +9,16 @@ app.use(cookieParser());
 
 app.set('view engine', 'pug');
 
+app.use((req, res, next) => {
+    req.message = 'This message made it!';
+    next();
+});
+
+app.use((req, res, next) => {
+    console.log(req.message);
+    next();
+});
+
 app.get('/', (req, res) => {
     const name = req.cookies.username;
     if (name) {
