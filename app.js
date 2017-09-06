@@ -10,12 +10,14 @@ app.use(cookieParser());
 app.set('view engine', 'pug');
 
 app.use((req, res, next) => {
-    req.message = 'This message made it!';
+    console.log('Hello');
+    // const err = new Error('Oh noes!');
+    // err.status = 500;
     next();
 });
 
 app.use((req, res, next) => {
-    console.log(req.message);
+    console.log(' World');
     next();
 });
 
@@ -50,6 +52,18 @@ app.post('/goodbye', (req, res) => {
 
 app.get('/cards', (req, res) => {
     res.render('card', {prompt: "Who is buried in Grant't tomb?"});    
+});
+
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, req, res, next) => {
+    res.locals.error = err;
+    res.status(err.status);
+    res.render('error');
 });
 
 app.listen(3000, () => {
