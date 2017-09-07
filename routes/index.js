@@ -30,8 +30,4 @@ router.post('/goodbye', (req, res) => {
     res.redirect('/hello');
 });
 
-router.get('/cards', (req, res) => {
-    res.render('card', {prompt: "Who is buried in Grant't tomb?"});    
-});
-
 module.exports = router;
